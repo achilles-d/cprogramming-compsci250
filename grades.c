@@ -35,13 +35,14 @@ int hash(int i)
 void dealloc_hash_table()
 {
     int i = 0;
-    int elementCount = 0;
-    struct student *place = malloc( sizeof(struct student) );
-    struct student *temp = place; 
+    
+    for(int i = 0; i < 13; i++){
 
-    for(int i = 0; i < 16; i++){
+        
 
         if(table[i] != 0){
+            struct student *place;
+            struct student *temp;
 
             place = table[i];
             temp = place; 
@@ -57,7 +58,6 @@ void dealloc_hash_table()
         }
     }
 
-    free(place);
     
 }
 
@@ -151,7 +151,7 @@ void delete_student(int student_id)
                 }
 
                 printf("DELETE (%d) %d %d %s\n", place -> studentId, place -> exam1, 
-                        place -> exam1, place -> theName);
+                        place -> exam2, place -> theName);
                 free(place);
                 return; 
 
