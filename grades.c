@@ -37,7 +37,7 @@ void dealloc_hash_table()
     int i = 0;
     int elementCount = 0;
     struct student *place = malloc( sizeof(struct student) );
-    struct student *temp;
+    struct student *temp = malloc( sizeof(struct student) );
 
     for(int i = 0; i < 16; i++){
 
@@ -87,8 +87,6 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
-        place = place -> next;
-        free(place);
         printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
         return;
     }
@@ -101,8 +99,6 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
-        place = place -> next;
-        free(place);
         printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
         return;
     }
