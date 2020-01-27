@@ -56,6 +56,7 @@ void dealloc_hash_table()
 
         }
     }
+    free(place);
     
 }
 
@@ -67,7 +68,7 @@ void dealloc_hash_table()
 void insert_student(int student_id, int exam1_score, int exam2_score, char name[])
 {
     int insHash = hash(student_id);
-    struct student *place = malloc( sizeof(struct student) );
+    struct student *place;
 
     if(table[insHash] != 0){
         place = table[insHash];
