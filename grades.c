@@ -34,7 +34,29 @@ int hash(int i)
  */
 void dealloc_hash_table()
 {
-    // TODO: Implement
+    int i = 0;
+    int elementCount = 0;
+    struct student *place = malloc( sizeof(struct student) );
+    struct student *temp;
+
+    for(int i = 0; i < 16; i++){
+
+        if(table[i] != 0){
+
+            place = table[i];
+            temp = place; 
+            place = place -> next;
+            free(temp);
+
+            while(place != 0){
+                temp = place; 
+                place = place -> next;
+                free(temp);
+            }
+
+        }
+    }
+    
 }
 
 /*
@@ -49,14 +71,14 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
 
     if(table[insHash] != 0){
         place = table[insHash];
-            while(place != 0){ 
+            while(place -> next != 0){ 
             //Check if fields match 
             if((place -> studentId == student_id) && (place -> exam1 == exam1_score) &&
                 (place -> exam2 == exam2_score) && (strcmp(place -> theName, name) == 0)){
                     printf("INSERT (%d) cannot insert because record exists", student_id);
                     return; 
                 }
-                place = place->next;
+                place = place -> next;
         }
         //Insert new entry 
         place -> studentId = student_id;
@@ -71,7 +93,7 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
     //Insert new entry at head of LinkedList
     else{
         table[insHash] = place; 
-         place -> studentId = student_id;
+        place -> studentId = student_id;
         place -> exam1 = exam1_score; 
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
