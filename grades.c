@@ -69,10 +69,9 @@ void dealloc_hash_table()
 void insert_student(int student_id, int exam1_score, int exam2_score, char name[])
 {
     int insHash = hash(student_id);
-    struct student *place = malloc( sizeof(struct student) );
-    struct student *temp = place; 
     if(table[insHash] != 0){
         struct student *place = table[insHash];
+        struct student *temp = place; 
             while(place != 0){ 
             //Check if fields match 
                 if(place -> studentId == student_id){
@@ -173,9 +172,8 @@ void delete_student(int student_id)
 void lookup_student(int student_id)
 {
     int insHash = hash(student_id);
-    struct student *place = malloc( sizeof(struct student) );
     if(table[insHash] != 0){
-        place = table[insHash];
+        struct student *place = table[insHash];
         while(place != 0){ 
             //Print if found
             if(place -> studentId == student_id){
