@@ -72,7 +72,7 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
     struct student *place = malloc( sizeof(struct student) );
     struct student *temp = place; 
     if(table[insHash] != 0){
-        place = table[insHash];
+        struct student *place = table[insHash];
             while(place != 0){ 
             //Check if fields match 
                 if(place -> studentId == student_id){
@@ -99,12 +99,13 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
 
     //Insert new entry at head of LinkedList
     else{
-        table[insHash] = place; 
+        struct student *place = malloc( sizeof(struct student) );
         place -> studentId = student_id;
         place -> exam1 = exam1_score; 
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
+        table[insHash] = place; 
         printf("INSERT (%d) %d %d %s\n", student_id, exam1_score, exam2_score, name);
         return;
     }
@@ -118,10 +119,9 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
 void delete_student(int student_id)
 {
     int insHash = hash(student_id);
-    struct student *place = malloc( sizeof(struct student) );
 
     if(table[insHash] != 0){
-        place = table[insHash];
+        struct student *place = table[insHash];
 
         //Matching element is the leading element in the list 
         if(place -> studentId == student_id){
