@@ -87,6 +87,8 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
+        place = place -> next;
+        free(place);
         printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
         return;
     }
@@ -99,6 +101,8 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
+        place = place -> next;
+        free(place);
         printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
         return;
     }
