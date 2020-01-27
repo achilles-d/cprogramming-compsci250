@@ -37,7 +37,7 @@ void dealloc_hash_table()
     int i = 0;
     int elementCount = 0;
     struct student *place = malloc( sizeof(struct student) );
-    struct student *temp = malloc( sizeof(struct student) );
+    struct student *temp; 
 
     for(int i = 0; i < 16; i++){
 
@@ -76,7 +76,7 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
             //Check if fields match 
             if((place -> studentId == student_id) && (place -> exam1 == exam1_score) &&
                 (place -> exam2 == exam2_score) && (strcmp(place -> theName, name) == 0)){
-                    printf("INSERT (%d) cannot insert because record exists", student_id);
+                    printf("INSERT (%d) cannot insert because record exists\n", student_id);
                     return; 
                 }
                 place = place -> next;
@@ -87,7 +87,7 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
-        printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
+        printf("INSERT (%d) %d %d %s\n", student_id, exam1_score, exam2_score, name );
         return;
     }
 
@@ -99,7 +99,7 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place -> exam2 = exam2_score; 
         strcpy(place -> theName, name);
         place -> next = 0; 
-        printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
+        printf("INSERT (%d) %d %d %s\n", student_id, exam1_score, exam2_score, name);
         return;
     }
 }
@@ -121,7 +121,21 @@ void delete_student(int student_id)
  */
 void lookup_student(int student_id)
 {
-    // TODO: Implement
+    int insHash = hash(student_id);
+    struct student *place = malloc( sizeof(struct student) );
+
+    if(table[insHash] != 0){
+        place = table[insHash];
+        while(place != 0){ 
+        printf("LOOKUP (%d) %d %d %s\n", place -> studentId, place -> exam1, place -> exam2,
+                place -> theName);
+                place = place -> next; 
+        }
+        return;
+    }
+    free(place);
+    
+    printf("LOOKUP (%d) record does not exist\n", student_id);
 }
 
 /*
