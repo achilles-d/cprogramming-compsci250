@@ -10,22 +10,22 @@
 #include <stdbool.h>
 #include <string.h>
 
-// TODO: Implement
 
+// TODO: Implement
+struct student{
+    int studentId;
+    int exam1;
+    int exam2;
+    char theName[16]; 
+}
+
+struct student table[13] = {null};
 /*
  * Sinple hash function.
  */
 int hash(int i)
 {
-    // TODO: Implement
-}
-
-/*
- * Initialize the hash table.
- */
-void init_hash_table()
-{
-    // TODO: Implement
+    return i % 13;
 }
 
 /*
@@ -43,7 +43,19 @@ void dealloc_hash_table()
  */
 void insert_student(int student_id, int exam1_score, int exam2_score, char name[])
 {
-    // TODO: Implement
+    int insHash = hash(student_id);
+    if(!(table[insHash] == null)){
+        struct student place* = table[insHash];
+        while(place != 0){
+            place = place.next; 
+        }
+        place = malloc( sizeof(struct student) );
+        place -> studentId = student_id;
+        place -> exam1 = exam1_score; 
+        place -> exam2 = exam2_score; 
+        place -> theName = name; 
+        printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
+    }
 }
 
 /*
@@ -53,7 +65,7 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
  */
 void delete_student(int student_id)
 {
-    // TODO: Implement
+    
 }
 
 /*
@@ -74,8 +86,6 @@ void lookup_student(int student_id)
  */
 int main(int argc, char *argv[])
 {
-    init_hash_table();
-
     FILE *fptr;
 
     if (argc != 2)
