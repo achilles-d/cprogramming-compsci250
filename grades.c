@@ -17,9 +17,10 @@ struct student{
     int exam1;
     int exam2;
     char theName[16]; 
-}
+    struct student *next; 
+};
 
-struct student table[13] = {};
+struct student* table[13] = {};
 /*
  * Sinple hash function.
  */
@@ -44,17 +45,24 @@ void dealloc_hash_table()
 void insert_student(int student_id, int exam1_score, int exam2_score, char name[])
 {
     int insHash = hash(student_id);
-    if(!(table[insHash] == null)){
+    if(table[insHash] != NULL){
         struct student *place = malloc( sizeof(struct student) );
         place = table[insHash];
-            while(place != 0){
-            place = place.next; 
+            while(place != NULL){
+            place = place->next; 
+            //Check if fields match 
+            if((place -> studentId == student_id) && (place -> exam1 == exam1_score) &&
+                (place -> exam2 == exam2_score) && (strcmp(place -> theName, name) == 0)){
+                    printf("INSERT (%d) cannot insert because record exists", student_id);
+                    return; 
+                }
         }
         place -> studentId = student_id;
         place -> exam1 = exam1_score; 
         place -> exam2 = exam2_score; 
-        place -> theName = name; 
+        strcpy(place -> theName, name);
         printf("INSERT (%d) %d %d %s", student_id, exam1_score, exam2_score, name );
+        return;
     }
 }
 
