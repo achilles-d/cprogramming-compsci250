@@ -22,7 +22,7 @@ struct student{
 
 struct student* table[13] = {};
 /*
- * Sinple hash function.
+ * Simple hash function.
  */
 int hash(int i)
 {
@@ -56,6 +56,7 @@ void dealloc_hash_table()
 
         }
     }
+
     free(place);
     
 }
@@ -74,13 +75,14 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
         place = table[insHash];
             while(place -> next != 0){ 
             //Check if fields match 
-            if((place -> studentId == student_id) && (place -> exam1 == exam1_score) &&
-                (place -> exam2 == exam2_score) && (strcmp(place -> theName, name) == 0)){
+                if(place -> studentId == student_id){
                     printf("INSERT (%d) cannot insert because record exists\n", student_id);
                     return; 
                 }
+
                 place = place -> next;
-        }
+
+            }
         //Insert new entry 
         place -> studentId = student_id;
         place -> exam1 = exam1_score; 
@@ -111,7 +113,52 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
  */
 void delete_student(int student_id)
 {
-    
+    int insHash = hash(student_id);
+    struct student *place = malloc( sizeof(struct student) );
+
+    if(table[insHash] != 0){
+        place = table[insHash];
+
+        //Matching element is the leading element in the list 
+        if(place -> studentId == student_id){
+            table[insHash] = place -> next;
+            printf("DELETE (%d) %d %d %s\n", place -> studentId, place -> exam1, 
+                    place -> exam1, place -> theName);
+            free(place); 
+            return; 
+        }
+
+        //Matching element is elsewhere, if it is present 
+        while(place -> next != 0){ 
+            
+            if(place -> next-> studentId == student_id){
+
+                struct student *front = place; 
+                    
+                //Handle case that matching element is not last in the list 
+                if(place -> next -> next != 0){
+                    place = place -> next;
+                    front -> next = place -> next;
+                }
+                //Handle case that matching element IS last in the list  
+                else{
+                    place = place -> next;
+                    front -> next = 0;
+                }
+
+                printf("DELETE (%d) %d %d %s\n", place -> studentId, place -> exam1, 
+                        place -> exam1, place -> theName);
+                free(place);
+                return; 
+
+            }
+
+            place = place -> next; 
+
+        }
+    }
+
+    printf("DELETE (%d) cannot delete because the record does not exist\n", student_id);
 }
 
 /*
@@ -127,14 +174,17 @@ void lookup_student(int student_id)
     if(table[insHash] != 0){
         place = table[insHash];
         while(place != 0){ 
-        printf("LOOKUP (%d) %d %d %s\n", place -> studentId, place -> exam1, place -> exam2,
+            //Print if found
+            if(place -> studentId == student_id){
+                printf("LOOKUP (%d) %d %d %s\n", place -> studentId, place -> exam1, place -> exam2,
                 place -> theName);
-                place = place -> next; 
+                return; 
+            }
+            place = place -> next; 
         }
-        return;
     }
+    //Not found
     free(place);
-    
     printf("LOOKUP (%d) record does not exist\n", student_id);
 }
 
