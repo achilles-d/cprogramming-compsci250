@@ -19,7 +19,7 @@ struct student{
     char theName[16]; 
 }
 
-struct student table[13] = {null};
+struct student table[13] = {};
 /*
  * Sinple hash function.
  */
@@ -45,11 +45,11 @@ void insert_student(int student_id, int exam1_score, int exam2_score, char name[
 {
     int insHash = hash(student_id);
     if(!(table[insHash] == null)){
-        struct student place* = table[insHash];
-        while(place != 0){
+        struct student *place = malloc( sizeof(struct student) );
+        place = table[insHash];
+            while(place != 0){
             place = place.next; 
         }
-        place = malloc( sizeof(struct student) );
         place -> studentId = student_id;
         place -> exam1 = exam1_score; 
         place -> exam2 = exam2_score; 
