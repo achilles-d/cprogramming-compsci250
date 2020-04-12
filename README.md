@@ -1,5 +1,6 @@
 # Homework 1: C Programming
 ## ***COMPSCI250: Computer Architecture***
+#### Note: z2017g is my old GitHub account that was used for schoolwork. 
 ## C Files
 ### bySeventeen.c
 * Makes use of a for loop to compute and print out the first N multiplies of 17.
